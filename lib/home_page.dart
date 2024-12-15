@@ -235,15 +235,15 @@ class _HomePageState extends State<HomePage> {
                             : const Icon(Icons.image, size: 100),
                       ),
                       Positioned(
-                        top: 0,
-                        right: 0,
-                        child: IconButton(
-                          icon: const Icon(
-                            Icons.delete_outline,
-                            size: 35,
-                            color: Colors.black,
-                          ),
-                          onPressed: () => _deleteProduct(index),
+                        top: 5,
+                        right: 5,
+                        child: GestureDetector(
+                          child: SizedBox(
+                              height: 30,
+                              width: 25,
+                              child: Image.asset("assets/delete.png", color: Colors.black,)),
+                       
+                          onTap: () => _deleteProduct(index), 
                         ),
                       ),
                     ],

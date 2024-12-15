@@ -77,7 +77,7 @@ class _LoginPageState extends State<LoginPage> {
 
         final prefs = await SharedPreferences.getInstance();
         await prefs.setString('token', token);
-        await prefs.setBool('isLoggedIn', true);  // Save the login state
+        await prefs.setBool('isLoggedIn', true); // Save the login state
 
         // Show success toast with blue color
         Fluttertoast.showToast(
@@ -149,7 +149,10 @@ class _LoginPageState extends State<LoginPage> {
       child: Scaffold(
         backgroundColor: Colors.white,
         body: _isLoading
-            ? Center(child: CircularProgressIndicator(color: Colors.blue.shade600,))
+            ? Center(
+                child: CircularProgressIndicator(
+                color: Colors.blue.shade600,
+              ))
             : SingleChildScrollView(
                 child: Padding(
                   padding:
@@ -221,11 +224,15 @@ class _LoginPageState extends State<LoginPage> {
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          const Icon(
-                            Icons.lock_outline,
-                            color: Colors.grey, // Icon color
-                            size: 24.0,
-                          ),
+                          // const Icon(
+                          //   Icons.lock_outline,
+                          //   color: Colors.grey, // Icon color
+                          //   size: 24.0,
+                          // ),
+                          SizedBox(
+                            height: 25,
+                            width: 25,
+                            child: Image.asset("assets/lock.png", color: Colors.grey,)),
                           const SizedBox(
                               width: 8.0), // Spacing between icon and TextField
                           Expanded(
