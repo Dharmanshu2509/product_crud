@@ -271,74 +271,76 @@ class _HomePageState extends State<HomePage> {
 
   Widget _buildCategoryRowWithProducts(
       String category, List<Map<String, dynamic>> categoryProducts) {
-    return Column(
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              '$category ${categoryProducts.length}',
-              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+    return Container(
+      child: Column(
+        children: [
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //   children: [
+          //     Text(
+          //       '$category ${categoryProducts.length}',
+          //       style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          //     ),
+          //   ],
+          // ),
+          // const SizedBox(height: 10),
+          GridView.builder(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              childAspectRatio: 0.9,
+              crossAxisSpacing: 8.0,
+              mainAxisSpacing: 8.0,
             ),
-          ],
-        ),
-        const SizedBox(height: 10),
-        GridView.builder(
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            childAspectRatio: 0.9,
-            crossAxisSpacing: 8.0,
-            mainAxisSpacing: 8.0,
-          ),
-          itemCount: categoryProducts.length,
-          itemBuilder: (context, index) {
-            final product = categoryProducts[index];
-            return Card(
-              elevation: 0,
-              color: Colors.white,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Stack(
-                    children: [
-                      Container(
-                        height: 120,
-                        width: double.infinity,
-                        padding: const EdgeInsets.all(5),
-                        decoration: BoxDecoration(
-                          color: Colors.grey.shade200,
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(12)),
+            itemCount: categoryProducts.length,
+            itemBuilder: (context, index) {
+              final product = categoryProducts[index];
+              return Card(
+                elevation: 0,
+                color: Colors.white,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Stack(
+                      children: [
+                        Container(
+                          height: 120,
+                          width: double.infinity,
+                          padding: const EdgeInsets.all(5),
+                          decoration: BoxDecoration(
+                            color: Colors.grey.shade200,
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(12)),
+                          ),
+                          child: product['image'] != null
+                              ? Image.file(
+                                  File(product['image']),
+                                  fit: BoxFit.contain,
+                                )
+                              : const Icon(Icons.image, size: 100),
                         ),
-                        child: product['image'] != null
-                            ? Image.file(
-                                File(product['image']),
-                                fit: BoxFit.contain,
-                              )
-                            : const Icon(Icons.image, size: 100),
-                      ),
-                    ],
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      product['name'],
-                      style: const TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 16),
+                      ],
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                    child: Text('Price: \$${product['price']}'),
-                  ),
-                ],
-              ),
-            );
-          },
-        ),
-      ],
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        product['name'],
+                        style: const TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 16),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                      child: Text('Price: \$${product['price']}'),
+                    ),
+                  ],
+                ),
+              );
+            },
+          ),
+        ],
+      ),
     );
   }
 
@@ -358,7 +360,7 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: Colors.white,
         body: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 30),
+            padding: const EdgeInsets.only(top: 30),
             child: Column(
               children: [
                 // Custom AppBar
@@ -452,6 +454,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
                 const SizedBox(height: 20),
+                // 3 texts
                 Container(
                   alignment: Alignment.centerLeft,
                   margin: const EdgeInsets.symmetric(horizontal: 15),
@@ -488,14 +491,14 @@ class _HomePageState extends State<HomePage> {
                     ],
                   ),
                 ),
-                const SizedBox(height: 30),
+                const SizedBox(height: 10),
                 Container(
-                  height: 600,
-                  padding: const EdgeInsets.all(16.0),
+                  height: 700,
+                  padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Flexible(
+                      Expanded(
                         child: ListView(
                           children: [
                             // If search query is not empty, display the filtered products
@@ -508,7 +511,7 @@ class _HomePageState extends State<HomePage> {
                                 return _buildCategoryRowWithProducts(
                                     category, filteredCategoryProducts);
                               }),
-
+                        
                             // If search query is empty, show the full categories
                             if (_searchController.text.isEmpty)
                               _buildCategoryRow('Product'),
@@ -522,7 +525,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
                 const SizedBox(
-                  height: 30,
+                  height: 10,
                 ),
               ],
             ),
